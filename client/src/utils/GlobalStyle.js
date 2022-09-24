@@ -8,6 +8,9 @@ const GlobalStyle = createGlobalStyle`
     --thistle: #cebbc9;
     --blue: #4056f4;
     --ultramarine: #470ff4;
+
+    --fontRoboto: RobotoLight, Open-Sans, Helvetica, Sans-Serif;
+    --fontBebas: BebasNeueRegular, Open-Sans, Helvetica, Sans-Serif;
   }
 
   body {

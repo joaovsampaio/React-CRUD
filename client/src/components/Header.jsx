@@ -11,7 +11,7 @@ const Container = styled.header`
     h1 {
         margin: 0 20px;
         font-size: 5rem;
-        font-family: BebasNeueRegular, Open-Sans, Helvetica, Sans-Serif;
+        font-family: var(--fontBebas);
     }
 `;
 
