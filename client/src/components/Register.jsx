@@ -1,21 +1,26 @@
 import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
+import Axios from 'axios';
 
-const Container = styled.div`
+const Container = styled.main`
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
 
     form {
+
         display: flex;
         flex-direction: column;
         align-items: center;
 
-        margin-top: 60px;
-
         label {
+            align-self: flex-start;
             font-size: 1.5em;
             margin: 7px 0;
             font-weight: 200;
-            align-self: flex-start;
             font-family: var(--fontBebas);
         }
 
@@ -32,7 +37,8 @@ const Container = styled.div`
 
         button {
             color: #fff;
-            padding: 5px 10px;
+            width: 90px;
+            height: 40px;
             border: 1px solid #fff;
             font-size: 20px;
             font-family: var(--fontRoboto);
@@ -54,13 +60,23 @@ const Container = styled.div`
     }
 `;
 
-function Cadastrar() {
+function Register() {
 
     const [product, setProduct] = useState("");
     const [price, setPrice] = useState("");
 
+    const addProduct = () => {
+        Axios.post("http://localhost:3001/create", {
+            product: product,
+            price: price
+        }).then(() => {
+            console.log("Sucesso");
+        });
+    };
+
   return (
     <Container>
+        <div>
         <form>
 
             <label>Produto:</label>
@@ -71,7 +87,7 @@ function Cadastrar() {
             }}
             />
 
-            <label>Valor:</label>
+            <label>Preço:</label>
             <input 
             type="number"
             onChange={(e) => {
@@ -80,13 +96,14 @@ function Cadastrar() {
             />
 
             <div>
-                <button type="submit">Salvar</button>
+                <button type="submit" onClick={addProduct}>Salvar</button>
                 <button>Cancelar</button>
             </div>
             
         </form>
+        </div>
     </Container> 
   )
 }
 
-export default Cadastrar;
+export default Register;

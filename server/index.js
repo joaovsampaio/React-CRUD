@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
-const mysql = require('mysql')
+const mysql = require('mysql');
+const cors = require('cors');
+
+app.use(cors())
+app.use(express.json());
 
 const db = mysql.createConnection({
     user: "root",
@@ -11,10 +15,10 @@ const db = mysql.createConnection({
 
 app.post('/create', (req, res) => {
     const product = req.body.product
-    const value = req.body.value
+    const price = req.body.price
 
     db.query('INSERT INTO cruddatas (produto, valor) VALUES (?,?)',
-    [product, value], 
+    [product, price], 
     (error, result) => {
         if (error) {
             console.log(error)
