@@ -1,27 +1,24 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const Container = styled.div`
-
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 40px;
-  
-  table {
 
-    width: 40%;
+  table {
+    width: 45%;
     border-collapse: collapse;
 
     thead {
       font-size: 1.6rem;
       font-family: var(--fontBebas);
-      
-      th {
-        border: 1px solid;
-        background-color: #fff;
-      }
 
+      th {
+        border: 1px solid black;
+        background-color: var(--details);
+      }
     }
 
     tbody {
@@ -34,7 +31,6 @@ const Container = styled.div`
         border: 1px solid;
       }
     }
-
   }
 `;
 
@@ -53,22 +49,22 @@ function Table() {
           <tr>
             <td>1</td>
             <td>Teste</td>
-            <td>000000</td>
+            <td>R$000000</td>
           </tr>
           <tr>
             <td>2</td>
             <td>Teste</td>
-            <td>000000</td>
+            <td>R$000000</td>
           </tr>
           <tr>
             <td>3</td>
             <td>Teste</td>
-            <td>000000</td>
+            <td>R$000000</td>
           </tr>
         </tbody>
       </table>
     </Container>
-  )
+  );
 }
 
 export default Table;

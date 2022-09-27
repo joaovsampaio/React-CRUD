@@ -1,26 +1,27 @@
-import { createGlobalStyle } from 'styled-components';
- 
+import { createGlobalStyle } from "styled-components";
+
 const GlobalStyle = createGlobalStyle`
 
   :root {
-    --raspberry: #ce2d4f;
-    --satin: #ce6d8b;
-    --thistle: #cebbc9;
-    --blue: #4056f4;
-    --ultramarine: #470ff4;
+    --primary: #D67AB1;
+    --secondary: #60435F;
+    --details: #E2A3C7;
+    --other: #A8DCD9;
+    --bg-color: #FDF7FA;
 
     --fontRoboto: RobotoLight, Open-Sans, Helvetica, Sans-Serif;
     --fontBebas: BebasNeueRegular, Open-Sans, Helvetica, Sans-Serif;
   }
 
-  body {
+  body, #root {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    width: 100vw;
     height: 100vh;
+    display:flex; 
+    flex-direction:column; 
 
-    background-color: var(--thistle);
+    background-color: var(--bg-color);
 
     @font-face {
     font-family: RobotoLight;
@@ -35,5 +36,5 @@ const GlobalStyle = createGlobalStyle`
     font-family: RobotoLight, Open-Sans, Helvetica, Sans-Serif;
   }
 `;
- 
+
 export default GlobalStyle;

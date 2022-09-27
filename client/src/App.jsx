@@ -1,18 +1,20 @@
-import Footer from './components/Footer';
-import Header from './components/Header';
-import GlobalStyle from './utils/GlobalStyle';
-import MyRoutes from './utils/routes';
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Home from "./components/Home";
+import Nav from "./components/Nav";
+import GlobalStyle from "./utils/GlobalStyle";
+import Main from "./components/Main";
 
 function App() {
-
   return (
     <>
       <GlobalStyle />
       <Header />
-      <MyRoutes />
+      <Nav />
+      <Main />
       <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
