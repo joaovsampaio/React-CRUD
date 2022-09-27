@@ -96,7 +96,7 @@ function Register() {
             <button type="submit" onClick={addProduct}>
               Salvar
             </button>
-            <button>Cancelar</button>
+            <button type="reset">Cancelar</button>
           </div>
         </form>
       </div>

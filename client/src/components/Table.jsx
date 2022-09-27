@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import Axios from "axios";
+import Register from "./Register";
+import { v4 as uuidv4 } from "uuid";
 
 const Container = styled.div`
   display: flex;
@@ -35,34 +38,49 @@ const Container = styled.div`
 `;
 
 function Table() {
+  const [productsList, setProductsList] = useState([]);
+
+  const getProducts = () => {
+    Axios.get("http://localhost:3001/products").then((res) => {
+      setProductsList(res.data);
+    });
+  };
+
+  /*{
+    productsList.map((val, key) => {
+      return (
+        <div>
+          <th>{val.id}</th>
+          <th>{val.produto}</th>
+          <th>{val.valor}</th>
+        </div>
+      );
+    });
+  }*/
   return (
     <Container>
       <table>
         <thead>
           <tr>
             <th>ID</th>
-            <th>Produtos</th>
-            <th>Valor</th>
+            <th>Produto</th>
+            <th>Preço</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Teste</td>
-            <td>R$000000</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Teste</td>
-            <td>R$000000</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Teste</td>
-            <td>R$000000</td>
-          </tr>
+          {productsList.map((val, key) => {
+            console.log(val.id);
+            return (
+              <tr key={val.id}>
+                <td>{val.id}</td>
+                <td>{val.produto}</td>
+                <td>R${val.valor}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
+      <button onClick={getProducts}>Listar</button>
     </Container>
   );
 }
