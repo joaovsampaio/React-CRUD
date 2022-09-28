@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Axios from "axios";
-import Register from "./Register";
-import { v4 as uuidv4 } from "uuid";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 40px;
+  margin: 40px 0;
 
   table {
     width: 45%;
@@ -40,23 +38,16 @@ const Container = styled.div`
 function Table() {
   const [productsList, setProductsList] = useState([]);
 
-  const getProducts = () => {
-    Axios.get("http://localhost:3001/products").then((res) => {
-      setProductsList(res.data);
-    });
-  };
+  useEffect(() => {
+    const getProducts = () => {
+      Axios.get("http://localhost:3001/products").then((res) => {
+        setProductsList(res.data);
+      });
+    };
 
-  /*{
-    productsList.map((val, key) => {
-      return (
-        <div>
-          <th>{val.id}</th>
-          <th>{val.produto}</th>
-          <th>{val.valor}</th>
-        </div>
-      );
-    });
-  }*/
+    getProducts();
+  }, []);
+
   return (
     <Container>
       <table>
@@ -69,7 +60,6 @@ function Table() {
         </thead>
         <tbody>
           {productsList.map((val, key) => {
-            console.log(val.id);
             return (
               <tr key={val.id}>
                 <td>{val.id}</td>
@@ -80,7 +70,6 @@ function Table() {
           })}
         </tbody>
       </table>
-      <button onClick={getProducts}>Listar</button>
     </Container>
   );
 }

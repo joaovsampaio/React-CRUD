@@ -40,6 +40,24 @@ app.get("/products", (req, res) => {
   });
 });
 
+app.put("/products", (req, res) => {
+  const id = req.body.id;
+  const product = req.body.product;
+  //const price = req.body.price;
+
+  db.query(
+    "UPDATE cruddatas SET produto = ? WHERE id = ?",
+    [id, product],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
 app.listen(3001, () => {
   console.log("Funcionando");
 });

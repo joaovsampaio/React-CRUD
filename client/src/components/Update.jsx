@@ -65,42 +65,56 @@ const Container = styled.main`
   }
 `;
 
-function Register() {
-  const [product, setProduct] = useState("");
-  const [price, setPrice] = useState(0);
+function Update() {
+  const [newProduct, setNewProduct] = useState("");
+  //const [newPrice, setNewPrice] = useState(0);
 
-  const addProduct = () => {
-    Axios.post("http://localhost:3001/create", {
-      product: product,
-      price: price,
-    }).then(() => {
-      console.log("Sucesso");
+  /*const updateProduct = (id) => {
+    Axios.put("http://localhost:3001/products", {
+      product: newProduct,
+      id: id,
+    }).then((resp) => {
+      console.log(resp);
+    });
+  };*/
+
+  const [productsList, setProductsList] = useState([]);
+
+  const getProducts = () => {
+    Axios.get("http://localhost:3001/products").then((res) => {
+      setProductsList(res.data);
+    });
+  };
+
+  const updateProduct = (id) => {
+    Axios.put("http://localhost:3001/products", {
+      product: newProduct,
+      id: id,
+    }).then((resp) => {
+      console.log(resp);
     });
   };
 
   return (
     <Container>
-      <h1>Cadastrar Produto</h1>
+      <h1>Atualizar Produto</h1>
       <div>
         <form>
           <label>Produto:</label>
           <input
             type="text"
             onChange={(e) => {
-              setProduct(e.target.value);
-            }}
-          />
-
-          <label>Preço:</label>
-          <input
-            type="number"
-            onChange={(e) => {
-              setPrice(e.target.value);
+              setNewProduct(e.target.value);
             }}
           />
 
           <div>
-            <button type="submit" onClick={addProduct}>
+            <button
+              type="submit"
+              onChange={() => {
+                updateProduct(id);
+              }}
+            >
               Salvar
             </button>
             <button type="reset">Cancelar</button>
@@ -111,4 +125,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Update;

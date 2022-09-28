@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import Register from "./Register";
 import Table from "./Table";
+import Update from "./Update";
 
 function Main() {
   return (
@@ -10,6 +11,7 @@ function Main() {
       <Route path="/" element={<Home />} />
       <Route path="/register" element={<Register />} />
       <Route path="/table" element={<Table />} />
+      <Route path="/update" element={<Update />} />
     </Routes>
   );
 }
