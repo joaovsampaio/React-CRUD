@@ -47,7 +47,7 @@ app.put("/products", (req, res) => {
 
   db.query(
     "UPDATE cruddatas SET produto = ? WHERE id = ?",
-    [id, product],
+    [product, id],
     (err, result) => {
       if (err) {
         console.log(err);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Axios from "axios";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -8,8 +9,14 @@ const Container = styled.div`
   align-items: center;
   margin: 40px 0;
 
+  h1 {
+    font-family: var(--fontBebas);
+    font-size: 3rem;
+    color: var(--primary);
+  }
+
   table {
-    width: 45%;
+    width: 90%;
     border-collapse: collapse;
 
     thead {
@@ -50,6 +57,7 @@ function Table() {
 
   return (
     <Container>
+      <h1>Tabela</h1>
       <table>
         <thead>
           <tr>
@@ -69,6 +77,15 @@ function Table() {
             );
           })}
         </tbody>
+        <tfoot>
+          <tr>
+            <td>
+              <Link to="/update">
+                <button>Editar</button>
+              </Link>
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </Container>
   );

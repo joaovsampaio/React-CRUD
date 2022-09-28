@@ -1,13 +1,12 @@
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Axios from "axios";
 
-const Container = styled.main`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
+  margin: 40px 0;
 
   h1 {
     font-family: var(--fontBebas);
@@ -15,76 +14,48 @@ const Container = styled.main`
     color: var(--primary);
   }
 
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  table {
+    width: 90%;
+    border-collapse: collapse;
 
-    label {
-      align-self: flex-start;
-      font-size: 1.5em;
-      margin: 7px 0;
-      font-weight: 200;
+    thead {
+      font-size: 1.6rem;
       font-family: var(--fontBebas);
-    }
 
-    input {
-      background-color: #fff;
-      height: 25px;
-      width: 200px;
-      font-size: 1.2em;
-      font-family: var(--fontRoboto);
-    }
-
-    div {
-      margin-top: 20px;
-    }
-
-    button {
-      color: var(--bg-color);
-      width: 90px;
-      height: 40px;
-      border: none;
-      font-size: 20px;
-      font-family: var(--fontRoboto);
-      cursor: pointer;
-
-      &:hover {
-        opacity: 0.7;
+      th {
+        border: 1px solid black;
+        background-color: var(--details);
       }
     }
 
-    button:first-child {
-      margin-right: 20px;
-      background-color: var(--secondary);
-    }
+    tbody {
+      font-size: 1rem;
+      text-align: center;
+      font-weight: bold;
 
-    button:last-child {
-      background-color: #fc2a2a;
+      td {
+        padding: 10px;
+        border: 1px solid;
+      }
     }
   }
 `;
 
 function Update() {
-  const [newProduct, setNewProduct] = useState("");
-  //const [newPrice, setNewPrice] = useState(0);
-
-  /*const updateProduct = (id) => {
-    Axios.put("http://localhost:3001/products", {
-      product: newProduct,
-      id: id,
-    }).then((resp) => {
-      console.log(resp);
-    });
-  };*/
-
   const [productsList, setProductsList] = useState([]);
 
-  const getProducts = () => {
-    Axios.get("http://localhost:3001/products").then((res) => {
-      setProductsList(res.data);
-    });
-  };
+  useEffect(() => {
+    const getProducts = () => {
+      Axios.get("http://localhost:3001/products").then((res) => {
+        setProductsList(res.data);
+      });
+    };
+
+    getProducts();
+  }, []);
+
+  const [newProduct, setNewProduct] = useState("");
+  //const [newPrice, setNewPrice] = useState(0);
 
   const updateProduct = (id) => {
     Axios.put("http://localhost:3001/products", {
@@ -97,30 +68,41 @@ function Update() {
 
   return (
     <Container>
-      <h1>Atualizar Produto</h1>
-      <div>
-        <form>
-          <label>Produto:</label>
-          <input
-            type="text"
-            onChange={(e) => {
-              setNewProduct(e.target.value);
-            }}
-          />
-
-          <div>
-            <button
-              type="submit"
-              onChange={() => {
-                updateProduct(id);
-              }}
-            >
-              Salvar
-            </button>
-            <button type="reset">Cancelar</button>
-          </div>
-        </form>
-      </div>
+      <h1>Editar Tabela</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Editar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {productsList.map((val, key) => {
+            return (
+              <tr key={val.id}>
+                <td>{val.id}</td>
+                <td>
+                  <input
+                    type="text"
+                    onChange={(e) => {
+                      setNewProduct(e.target.value);
+                    }}
+                  />
+                  <button
+                    type="submit"
+                    onClick={() => {
+                      updateProduct(val.id);
+                    }}
+                  >
+                    Salvar
+                  </button>
+                  <button>Excluir</button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </Container>
   );
 }
