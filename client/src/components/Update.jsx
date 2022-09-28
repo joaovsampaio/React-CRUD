@@ -14,6 +14,27 @@ const Container = styled.div`
     color: var(--primary);
   }
 
+  button {
+    border: none;
+    font-size: 1rem;
+    font-family: var(--fontBebas);
+    cursor: pointer;
+
+    &:first-of-type {
+      color: var(--bg-color);
+      background-color: var(--primary);
+    }
+
+    &:last-of-type {
+      color: var(--bg-color);
+      background-color: #fc2a2a;
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
   table {
     width: 90%;
     border-collapse: collapse;
@@ -30,12 +51,55 @@ const Container = styled.div`
 
     tbody {
       font-size: 1rem;
-      text-align: center;
       font-weight: bold;
 
+      label {
+        font-size: 1.2em;
+      }
+
+      input {
+        background-color: #fff;
+        font-size: 1.2em;
+        font-family: var(--fontRoboto);
+      }
+
       td {
-        padding: 10px;
+        padding: 20px;
         border: 1px solid;
+      }
+
+      td:first-child {
+        text-align: center;
+      }
+
+      @media (max-width: 1023px) {
+        td:last-child {
+          display: flex;
+          flex-direction: column;
+        }
+
+        button {
+          margin: 5px 0;
+        }
+
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          margin-bottom: 10px;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        td:last-child {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        button {
+          height: 100%;
+          width: 10%;
+        }
       }
     }
   }
@@ -82,12 +146,22 @@ function Update() {
               <tr key={val.id}>
                 <td>{val.id}</td>
                 <td>
+                  <label>Produto:</label>
                   <input
                     type="text"
                     onChange={(e) => {
                       setNewProduct(e.target.value);
                     }}
                   />
+
+                  <label>Preço:</label>
+                  <input
+                    type="number"
+                    onChange={(e) => {
+                      setNewProduct(e.target.value);
+                    }}
+                  />
+
                   <button
                     type="submit"
                     onClick={() => {

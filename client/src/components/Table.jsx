@@ -40,6 +40,29 @@ const Container = styled.div`
       }
     }
   }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 20px;
+    width: 90%;
+
+    button {
+      color: var(--secondary);
+      background-color: var(--other);
+      width: 90px;
+      height: 40px;
+      border: none;
+      font-size: 1.5rem;
+      font-family: var(--fontBebas);
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
 `;
 
 function Table() {
@@ -77,16 +100,12 @@ function Table() {
             );
           })}
         </tbody>
-        <tfoot>
-          <tr>
-            <td>
-              <Link to="/update">
-                <button>Editar</button>
-              </Link>
-            </td>
-          </tr>
-        </tfoot>
       </table>
+      <div>
+        <Link to="/update">
+          <button>Editar</button>
+        </Link>
+      </div>
     </Container>
   );
 }

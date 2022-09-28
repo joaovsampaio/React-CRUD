@@ -86,6 +86,7 @@ function Register() {
           <label>Produto:</label>
           <input
             type="text"
+            required
             onChange={(e) => {
               setProduct(e.target.value);
             }}
@@ -94,6 +95,7 @@ function Register() {
           <label>Preço:</label>
           <input
             type="number"
+            required
             onChange={(e) => {
               setPrice(e.target.value);
             }}
