@@ -2,6 +2,28 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Axios from "axios";
 
+const Wrap = styled.div`
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+
+  div {
+    background-color: var(--secondary);
+    margin: auto;
+    padding: 5px;
+    width: 30%;
+  }
+
+  p {
+    text-align: center;
+    color: var(--other);
+    font-size: 1.2rem;
+  }
+`;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -119,14 +141,40 @@ function Update() {
   }, []);
 
   const [newProduct, setNewProduct] = useState("");
-  //const [newPrice, setNewPrice] = useState(0);
+  const [newPrice, setNewPrice] = useState(0);
 
   const updateProduct = (id) => {
     Axios.put("http://localhost:3001/products", {
       product: newProduct,
+      price: newPrice,
       id: id,
     }).then((resp) => {
-      console.log(resp);
+      const div1 = document.createElement("div");
+      div1.style.position = "fixed";
+      div1.style.left = "0";
+      div1.style.top = "10%";
+      div1.style.zIndex = "1";
+      div1.style.width = "100%";
+      document.getElementById("root").appendChild(div1);
+
+      const div2 = document.createElement("div");
+      div2.style.backgroundColor = "#2c032a";
+      div2.style.margin = "auto";
+      div2.style.border = "3px solid #fff";
+      div2.style.padding = "5px";
+      div2.style.width = "fit-content";
+      div1.appendChild(div2);
+
+      const par = document.createElement("p");
+      par.innerHTML = "Item Alterado";
+      par.style.textAlign = "center";
+      par.style.color = "#fff";
+      par.style.fontSize = "1.2rem";
+      div2.appendChild(par);
+
+      setTimeout(() => {
+        div1.remove();
+      }, 800);
     });
   };
 
@@ -149,6 +197,7 @@ function Update() {
                   <label>Produto:</label>
                   <input
                     type="text"
+                    placeholder={val.produto}
                     onChange={(e) => {
                       setNewProduct(e.target.value);
                     }}
@@ -157,8 +206,9 @@ function Update() {
                   <label>Preço:</label>
                   <input
                     type="number"
+                    placeholder={val.valor}
                     onChange={(e) => {
-                      setNewProduct(e.target.value);
+                      setNewPrice(e.target.value);
                     }}
                   />
 

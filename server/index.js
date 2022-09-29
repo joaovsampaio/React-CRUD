@@ -43,11 +43,11 @@ app.get("/products", (req, res) => {
 app.put("/products", (req, res) => {
   const id = req.body.id;
   const product = req.body.product;
-  //const price = req.body.price;
+  const price = req.body.price;
 
   db.query(
-    "UPDATE cruddatas SET produto = ? WHERE id = ?",
-    [product, id],
+    "UPDATE cruddatas SET produto = ?, valor = ? WHERE id = ?",
+    [product, price, id],
     (err, result) => {
       if (err) {
         console.log(err);
