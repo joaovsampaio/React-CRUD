@@ -3,23 +3,25 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.nav`
-  background-color: var(--other);
-
-  ul {
+  div {
     display: flex;
     justify-content: space-around;
     list-style: none;
     padding-inline-start: 0;
+    background-color: var(--other);
+  }
 
-    a {
-      font-size: 1.3rem;
-      font-family: var(--fontBebas);
-      color: var(--secondary);
-      text-decoration: none;
+  a {
+    text-align: center;
+    width: 100%;
+    font-size: 1.5rem;
+    font-family: var(--fontBebas);
+    color: var(--secondary);
+    text-decoration: none;
 
-      &:hover {
-        color: var(--primary);
-      }
+    &:hover {
+      background-color: var(--secondary);
+      color: var(--bg-color);
     }
   }
 `;
@@ -27,17 +29,11 @@ const Container = styled.nav`
 function Nav() {
   return (
     <Container>
-      <ul>
-        <li>
-          <Link to="/register">Cadastro</Link>
-        </li>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/table">Tabela</Link>
-        </li>
-      </ul>
+      <div>
+        <Link to="/register">Cadastro</Link>
+        <Link to="/">Home</Link>
+        <Link to="/table">Tabela</Link>
+      </div>
     </Container>
   );
 }

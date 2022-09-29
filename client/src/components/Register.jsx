@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import Axios from "axios";
@@ -57,6 +57,11 @@ const Container = styled.main`
     button:first-child {
       margin-right: 20px;
       background-color: var(--secondary);
+
+      &:disabled {
+        opacity: 0.1;
+        cursor: default;
+      }
     }
 
     button:last-child {
@@ -77,6 +82,17 @@ function Register() {
       console.log("Sucesso");
     });
   };
+
+  useEffect(() => {
+    let product_length = product.length >= 1;
+    let price_length = price.length >= 1;
+
+    if (product_length && price_length) {
+      document.getElementById("submit").disabled = false;
+    } else {
+      document.getElementById("submit").disabled = true;
+    }
+  }, [product, price]);
 
   return (
     <Container>
@@ -102,7 +118,7 @@ function Register() {
           />
 
           <div>
-            <button type="submit" onClick={addProduct}>
+            <button id="submit" type="submit" onClick={addProduct}>
               Salvar
             </button>
             <button type="reset">Cancelar</button>
