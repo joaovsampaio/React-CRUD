@@ -44,7 +44,7 @@ function ModalError() {
   div1.appendChild(div2);
 
   const par = document.createElement("p");
-  par.innerHTML = "Erro Ao Alterar";
+  par.innerHTML = "Algo Deu Errado";
   par.style.textAlign = "center";
   par.style.color = "#fff";
   par.style.fontSize = "1.5rem";
