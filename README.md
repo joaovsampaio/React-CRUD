@@ -1,6 +1,4 @@
-# CRUD Simples
-
-:book:
+# CRUD Simples :book:
 
 Um simples crud com tecnologias frontend e backend.
 
@@ -18,9 +16,9 @@ Um simples crud com tecnologias frontend e backend.
 
 ## Imagens :arrow_down:
 
-![Imagem React Crud 1](<../react-crud/client/src/assets/img/img_git(1).PNG>)
+![Imagem React Crud 1](<./client/src/assets/img/img_git(1).PNG>)
 
-![Imagem React Crud 2](<../react-crud/client/src/assets/img/img_git(2).PNG>)
+![Imagem React Crud 2](<./client/src/assets/img/img_git(2).PNG>)
 
 ## Para Abrir:
 
