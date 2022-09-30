@@ -136,6 +136,16 @@ function Update() {
       });
   };
 
+  const deleteProduct = (id) => {
+    Axios.delete(`http://localhost:3001/products/${id}`).then(() => {
+      setProductsList(
+        productsList.filter((val) => {
+          return val.id != id;
+        })
+      );
+    });
+  };
+
   return (
     <Container>
       <h1>Editar Tabela</h1>
@@ -178,7 +188,13 @@ function Update() {
                   >
                     Salvar
                   </button>
-                  <button>Excluir</button>
+                  <button
+                    onClick={() => {
+                      deleteProduct(val.id);
+                    }}
+                  >
+                    Excluir
+                  </button>
                 </td>
               </tr>
             );

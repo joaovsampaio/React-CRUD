@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Container = styled.header`
   display: flex;
   align-items: center;
-  height: 100px;
+  height: fit-content;
   background-color: var(--primary);
 
   a {
@@ -13,8 +13,8 @@ const Container = styled.header`
   }
 
   h1 {
+    font-size: 4.5rem;
     margin: 0 20px;
-    font-size: 5rem;
     color: var(--bg-color);
     font-family: var(--fontBebas);
   }
@@ -24,7 +24,7 @@ function Header() {
   return (
     <Container>
       <Link to="/">
-        <h1>CRUD</h1>
+        <h1>React CRUD</h1>
       </Link>
     </Container>
   );

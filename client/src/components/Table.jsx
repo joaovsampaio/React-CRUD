@@ -40,27 +40,27 @@ const Container = styled.div`
       }
     }
   }
+`;
 
-  div {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin-top: 20px;
-    width: 90%;
+const Edit = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 20px 0;
+  width: 90%;
 
-    button {
-      color: var(--secondary);
-      background-color: var(--other);
-      width: 90px;
-      height: 40px;
-      border: none;
-      font-size: 1.5rem;
-      font-family: var(--fontBebas);
-      cursor: pointer;
+  button {
+    color: var(--secondary);
+    background-color: var(--other);
+    width: 90px;
+    height: 40px;
+    border: none;
+    font-size: 1.5rem;
+    font-family: var(--fontBebas);
+    cursor: pointer;
 
-      &:hover {
-        opacity: 0.7;
-      }
+    &:hover {
+      opacity: 0.7;
     }
   }
 `;
@@ -81,6 +81,11 @@ function Table() {
   return (
     <Container>
       <h1>Tabela</h1>
+      <Edit>
+        <Link to="/update">
+          <button>Editar</button>
+        </Link>
+      </Edit>
       <table>
         <thead>
           <tr>
@@ -101,11 +106,6 @@ function Table() {
           })}
         </tbody>
       </table>
-      <div>
-        <Link to="/update">
-          <button>Editar</button>
-        </Link>
-      </div>
     </Container>
   );
 }

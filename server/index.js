@@ -58,6 +58,17 @@ app.put("/products", (req, res) => {
   );
 });
 
+app.delete("/products/:id", (req, res) => {
+  const id = req.params.id;
+  db.query("DELETE FROM cruddatas WHERE id = ?", id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
 app.listen(3001, () => {
-  console.log("Funcionando");
+  console.log("Server Executando");
 });
