@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import Axios from "axios";
+import { ModalError } from "../utils/Modal";
 
 const Container = styled.main`
   display: flex;
@@ -78,9 +79,13 @@ function Register() {
     Axios.post("http://localhost:3001/create", {
       product: product,
       price: price,
-    }).then(() => {
-      console.log("Sucesso");
-    });
+    })
+      .then(() => {
+        alert("Produto Adicionado");
+      })
+      .catch(() => {
+        ModalError();
+      });
   };
 
   useEffect(() => {

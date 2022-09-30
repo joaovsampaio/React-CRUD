@@ -111,9 +111,11 @@ function Update() {
 
   useEffect(() => {
     const getProducts = () => {
-      Axios.get("http://localhost:3001/products").then((res) => {
-        setProductsList(res.data);
-      });
+      Axios.get("http://localhost:3001/products")
+        .then((res) => {
+          setProductsList(res.data);
+        })
+        .catch(() => alert("Algo deu Errado"));
     };
 
     getProducts();

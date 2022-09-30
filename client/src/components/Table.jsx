@@ -71,9 +71,13 @@ function Table() {
 
   useEffect(() => {
     const getProducts = () => {
-      Axios.get("http://localhost:3001/products").then((res) => {
-        setProductsList(res.data);
-      });
+      Axios.get("http://localhost:3001/products")
+        .then((res) => {
+          setProductsList(res.data);
+        })
+        .catch(() => {
+          document.getElementById("loading").style.display = "block";
+        });
     };
 
     getProducts();
@@ -107,6 +111,12 @@ function Table() {
           })}
         </tbody>
       </table>
+      <img
+        src={Loading}
+        alt="Carregando..."
+        id="loading"
+        style={{ display: "none" }}
+      ></img>
     </Container>
   );
 }
