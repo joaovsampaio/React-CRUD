@@ -25,7 +25,7 @@ function ModalSuccess() {
 
   setTimeout(() => {
     div1.remove();
-  }, 5000);
+  }, 1000);
 }
 
 function ModalError() {
@@ -55,7 +55,7 @@ function ModalError() {
 
   setTimeout(() => {
     div1.remove();
-  }, 5000);
+  }, 1000);
 }
 
 export { ModalSuccess, ModalError };

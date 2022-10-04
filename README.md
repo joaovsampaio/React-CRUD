@@ -26,7 +26,7 @@ Execute o servidor do frontend (client):
 
 ```bash
 npm run dev
-# or
+# ou
 yarn dev
 ```
 

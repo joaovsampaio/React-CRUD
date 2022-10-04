@@ -18,12 +18,14 @@ const Container = styled.div`
   button {
     border: none;
     font-size: 1rem;
+    padding: 5px;
     font-family: var(--fontBebas);
     cursor: pointer;
 
     &:first-of-type {
       color: var(--bg-color);
       background-color: var(--primary);
+      margin: 15px 0 10px 0;
     }
 
     &:last-of-type {
@@ -36,79 +38,49 @@ const Container = styled.div`
     }
   }
 
-  table {
-    width: 90%;
-    border-collapse: collapse;
+  label {
+    font-size: 1.2em;
+    margin: 10px 0;
+  }
 
-    thead {
-      font-size: 1.6rem;
-      font-family: var(--fontBebas);
+  input {
+    background-color: #fff;
+    font-size: 1.2em;
+    font-family: var(--fontRoboto);
 
-      th {
-        border: 1px solid black;
-        background-color: var(--details);
-      }
+    &::placeholder {
+      color: #cecccc;
+    }
+  }
+
+  #wrapped {
+    margin: 10px 0;
+    padding: 20px;
+    border: 1px solid;
+    background-color: #fff;
+
+    span {
+      font-size: 1.2rem;
+      background-color: var(--details);
+      color: #fff;
+      border-radius: 5px;
+      padding: 3px;
     }
 
-    tbody {
-      font-size: 1rem;
-      font-weight: bold;
+    div {
+      display: flex;
+      flex-direction: column;
+    }
+  }
 
-      label {
-        font-size: 1.2em;
-      }
-
-      input {
-        background-color: #fff;
-        font-size: 1.2em;
-        font-family: var(--fontRoboto);
-      }
-
-      td {
-        padding: 20px;
-        border: 1px solid;
-      }
-
-      td:first-child {
-        text-align: center;
-      }
-
-      @media (max-width: 1023px) {
-        td:last-child {
-          display: flex;
-          flex-direction: column;
-        }
-
-        button {
-          margin: 5px 0;
-        }
-
-        label {
-          margin-bottom: 5px;
-        }
-        input {
-          margin-bottom: 10px;
-        }
-      }
-
-      @media (min-width: 1024px) {
-        td:last-child {
-          display: flex;
-          justify-content: space-between;
-        }
-
-        button {
-          height: 100%;
-          width: 10%;
-        }
-      }
+  @media (min-width: 768px) {
+    #wrapped {
+      width: 30%;
     }
   }
 `;
 
 function Update() {
-  const [productsList, setProductsList] = useState([]);
-
   useEffect(() => {
     const getProducts = () => {
       Axios.get("http://localhost:3001/products")
@@ -121,6 +93,7 @@ function Update() {
     getProducts();
   }, []);
 
+  const [productsList, setProductsList] = useState([]);
   const [newProduct, setNewProduct] = useState("");
   const [newPrice, setNewPrice] = useState(0);
 
@@ -151,58 +124,48 @@ function Update() {
   return (
     <Container>
       <h1>Editar Tabela</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Editar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {productsList.map((val, key) => {
-            return (
-              <tr key={val.id}>
-                <td>{val.id}</td>
-                <td>
-                  <label>Produto:</label>
-                  <input
-                    type="text"
-                    placeholder={val.produto}
-                    onChange={(e) => {
-                      setNewProduct(e.target.value);
-                    }}
-                  />
+      {productsList.map((val, key) => {
+        return (
+          <div key={val.id} id="wrapped">
+            <span>ID: {val.id}</span>
+            <div>
+              <label>Produto:</label>
+              <input
+                type="text"
+                placeholder={val.produto}
+                onChange={(e) => {
+                  setNewProduct(e.target.value);
+                }}
+              />
 
-                  <label>Preço:</label>
-                  <input
-                    type="number"
-                    placeholder={val.valor}
-                    onChange={(e) => {
-                      setNewPrice(e.target.value);
-                    }}
-                  />
+              <label>Preço:</label>
+              <input
+                type="number"
+                placeholder={val.valor}
+                onChange={(e) => {
+                  setNewPrice(e.target.value);
+                }}
+              />
 
-                  <button
-                    type="submit"
-                    onClick={() => {
-                      updateProduct(val.id);
-                    }}
-                  >
-                    Salvar
-                  </button>
-                  <button
-                    onClick={() => {
-                      deleteProduct(val.id);
-                    }}
-                  >
-                    Excluir
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+              <button
+                type="submit"
+                onClick={() => {
+                  updateProduct(val.id);
+                }}
+              >
+                Salvar
+              </button>
+              <button
+                onClick={() => {
+                  deleteProduct(val.id);
+                }}
+              >
+                Excluir
+              </button>
+            </div>
+          </div>
+        );
+      })}
     </Container>
   );
 }
