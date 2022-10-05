@@ -12,7 +12,7 @@ const Container = styled.div`
   h1 {
     font-family: var(--fontBebas);
     font-size: 3rem;
-    color: var(--primary);
+    color: ${({ theme }) => theme.colors.title};
   }
 
   button {
@@ -23,13 +23,13 @@ const Container = styled.div`
     cursor: pointer;
 
     &:first-of-type {
-      color: var(--bg-color);
-      background-color: var(--primary);
+      color: #fff;
+      background-color: ${({ theme }) => theme.colors.other};
       margin: 15px 0 10px 0;
     }
 
     &:last-of-type {
-      color: var(--bg-color);
+      color: #fff;
       background-color: #fc2a2a;
     }
 
@@ -61,7 +61,7 @@ const Container = styled.div`
 
     span {
       font-size: 1.2rem;
-      background-color: var(--details);
+      background-color: ${({ theme }) => theme.colors.details};
       color: #fff;
       border-radius: 5px;
       padding: 3px;

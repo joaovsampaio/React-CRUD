@@ -8,7 +8,7 @@ const Container = styled.nav`
     justify-content: space-around;
     list-style: none;
     padding-inline-start: 0;
-    background-color: var(--other);
+    background-color: ${({ theme }) => theme.colors.other};
   }
 
   a {
@@ -16,12 +16,12 @@ const Container = styled.nav`
     width: 100%;
     font-size: 1.5rem;
     font-family: var(--fontBebas);
-    color: var(--secondary);
+    color: ${({ theme }) => theme.colors.secondary};
     text-decoration: none;
 
     &:hover {
-      background-color: var(--secondary);
-      color: var(--bg-color);
+      background-color: ${({ theme }) => theme.colors.secondary};
+      color: ${({ theme }) => theme.colors.bgColor};
     }
   }
 `;

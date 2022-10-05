@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.footer`
-  background-color: var(--primary);
+  background-color: ${({ theme }) => theme.colors.primary};
   height: 50px;
   margin-top: auto;
 
@@ -14,16 +14,16 @@ const Container = styled.footer`
 
     span {
       font-size: 1.2rem;
-      color: var(--bg-color);
+      color: #fdf7fa;
     }
 
     a {
       margin-left: 5px;
       text-decoration: none;
-      color: var(--other);
+      color: ${({ theme }) => theme.colors.other};
 
       &:hover {
-        color: var(--secondary);
+        color: ${({ theme }) => theme.colors.secondary};
         text-decoration: underline;
       }
     }

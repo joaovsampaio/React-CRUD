@@ -13,7 +13,7 @@ const Container = styled.main`
   h1 {
     font-family: var(--fontBebas);
     font-size: 3rem;
-    color: var(--primary);
+    color: ${({ theme }) => theme.colors.title};
   }
 
   form {
@@ -27,6 +27,7 @@ const Container = styled.main`
       margin: 7px 0;
       font-weight: 200;
       font-family: var(--fontBebas);
+      color: ${({ theme }) => theme.colors.text};
     }
 
     input {
@@ -42,7 +43,7 @@ const Container = styled.main`
     }
 
     button {
-      color: var(--bg-color);
+      color: #fdf7fa;
       width: 90px;
       height: 40px;
       border: none;
@@ -57,7 +58,7 @@ const Container = styled.main`
 
     button:first-child {
       margin-right: 20px;
-      background-color: var(--secondary);
+      background-color: ${({ theme }) => theme.colors.title};
 
       &:disabled {
         opacity: 0.1;

@@ -10,12 +10,12 @@ const Container = styled.div`
 
   h1 {
     font-size: 8rem;
-    color: var(--secondary);
+    color: ${({ theme }) => theme.colors.other};
     text-align: center;
   }
 
   span {
-    color: var(--secondary);
+    color: ${({ theme }) => theme.colors.text};
     text-align: center;
     font-size: 1.5rem;
   }

@@ -10,19 +10,17 @@ const Container = styled.main`
 const Welcome = styled.div`
   margin-top: 80px;
   width: 80%;
-  border-radius: 2px;
   text-align: center;
-  background-color: var(--details);
 
   h1 {
-    color: var(--secondary);
+    color: ${({ theme }) => theme.colors.other};
     font-size: 4rem;
     font-family: var(--fontBebas);
   }
 
   p {
     font-size: 1.7rem;
-    color: var(--bg-color);
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 
@@ -37,12 +35,12 @@ const Wrapper = styled.div`
 
   margin: 40px 0 20px 0;
   border-radius: 10px;
-  background-color: var(--other);
+  background-color: ${({ theme }) => theme.colors.other};
 
   h2 {
     text-align: center;
     font-size: 2rem;
-    color: var(--secondary);
+    color: ${({ theme }) => theme.colors.secondary};
   }
 
   div {
@@ -54,6 +52,7 @@ const Wrapper = styled.div`
       li {
         font-size: 1.2rem;
         list-style: circle;
+        color: ${({ theme }) => theme.colors.text};
       }
     }
   }

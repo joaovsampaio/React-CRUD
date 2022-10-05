@@ -13,7 +13,7 @@ const Container = styled.div`
   h1 {
     font-family: var(--fontBebas);
     font-size: 3rem;
-    color: var(--primary);
+    color: ${({ theme }) => theme.colors.title};
   }
 
   table {
@@ -26,7 +26,8 @@ const Container = styled.div`
 
       th {
         border: 1px solid black;
-        background-color: var(--details);
+        color: ${({ theme }) => theme.colors.text};
+        background-color: ${({ theme }) => theme.colors.details};
       }
     }
 
@@ -37,7 +38,8 @@ const Container = styled.div`
 
       td {
         padding: 10px;
-        border: 1px solid;
+        border: 1px solid #000;
+        color: ${({ theme }) => theme.colors.text};
       }
     }
   }
@@ -51,8 +53,8 @@ const Edit = styled.div`
   width: 90%;
 
   button {
-    color: var(--secondary);
-    background-color: var(--other);
+    color: ${({ theme }) => theme.colors.secondary};
+    background-color: ${({ theme }) => theme.colors.other};
     width: 90px;
     height: 40px;
     border: none;
