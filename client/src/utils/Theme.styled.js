@@ -9,6 +9,8 @@ const light = {
 
     text: "#333533",
     title: "#5a189a",
+    moon: "#000",
+    sun: "#fff",
   },
 };
 
@@ -23,6 +25,8 @@ const dark = {
 
     text: "#FDF7FA",
     title: "#6a4c93",
+    moon: "#fff",
+    sun: "#000",
   },
 };
 

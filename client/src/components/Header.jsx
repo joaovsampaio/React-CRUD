@@ -15,10 +15,39 @@ const Container = styled.header`
   }
 
   h1 {
-    font-size: 4.5rem;
     margin: 0 20px;
     color: #fdf7fa;
     font-family: var(--fontBebas);
+  }
+
+  @media (min-width: 768px) {
+    h1 {
+      font-size: 4.5rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    h1 {
+      font-size: 2.2rem;
+    }
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+
+    span {
+      font-size: 30px;
+      margin: 0 5px;
+
+      &:first-of-type {
+        color: ${({ theme }) => theme.colors.sun};
+      }
+
+      &:last-of-type {
+        color: ${({ theme }) => theme.colors.moon};
+      }
+    }
   }
 `;
 
@@ -30,7 +59,11 @@ function Header(props) {
       <Link to="/">
         <h1>React CRUD</h1>
       </Link>
-      <div>{btnSwitch}</div>
+      <div>
+        <span>&#9728;</span>
+        {btnSwitch}
+        <span>&#9790;</span>
+      </div>
     </Container>
   );
 }
