@@ -22,6 +22,10 @@ Um simples crud com tecnologias frontend e backend.
 
 ## Para Abrir:
 
+Use o terminal e acesse a pasta client:
+
+`npm i`
+
 Execute o servidor do frontend (client):
 
 ```bash
@@ -32,7 +36,7 @@ yarn dev
 
 Abra no seu navegador o link que aparecer.
 
-Execute o servidor do backend (server):
+Use o terminal e abra a pasta server:
 
 ```
   node index.js
