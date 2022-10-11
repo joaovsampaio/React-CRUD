@@ -4,13 +4,7 @@ import * as theme from "./Theme.styled";
 const GlobalStyle = createGlobalStyle`
 
   :root {
-    /*
-    --primary: #D67AB1;
-    --secondary: #60435F;
-    --details: #E2A3C7;
-    --other: #A8DCD9;
-    --bg-color: #FDF7FA;
-    */
+    
     --fontRoboto: RobotoLight, Open-Sans, Helvetica, Sans-Serif;
     --fontBebas: BebasNeueRegular, Open-Sans, Helvetica, Sans-Serif;
   }
