@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { ThemeContext } from "styled-components";
+import Switch from "react-switch";
 
 const Container = styled.header`
   display: flex;
@@ -51,9 +52,8 @@ const Container = styled.header`
   }
 `;
 
-function Header(props) {
-  const btnSwitch = props.btnSwitch;
-
+function Header({ HandleThemeChange }) {
+  const { name } = useContext(ThemeContext);
   return (
     <Container>
       <Link to="/">
@@ -61,7 +61,12 @@ function Header(props) {
       </Link>
       <div>
         <span>&#9728;</span>
-        {btnSwitch}
+        <Switch
+          onChange={HandleThemeChange}
+          checked={name === "dark"}
+          uncheckedIcon={false}
+          checkedIcon={false}
+        />
         <span>&#9790;</span>
       </div>
     </Container>

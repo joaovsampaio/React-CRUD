@@ -1,5 +1,5 @@
 const light = {
-  name: "light-theme",
+  name: "light",
   colors: {
     primary: "#5a189a",
     secondary: "#7b2cbf",
@@ -15,7 +15,7 @@ const light = {
 };
 
 const dark = {
-  name: "dark-theme",
+  name: "dark",
   colors: {
     primary: "#10002b",
     secondary: "#240046",
