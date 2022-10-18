@@ -5,16 +5,23 @@ const Container = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  background: linear-gradient(
+    to bottom,
+    ${({ theme }) => theme.colors.bgColor},
+    ${({ theme }) => theme.colors.primary}
+  );
 `;
 
 const Welcome = styled.div`
-  margin-top: 80px;
   width: 80%;
   text-align: center;
 
   h1 {
     color: ${({ theme }) => theme.colors.other};
-    font-size: 4rem;
+    font-size: 8rem;
+    margin: 0;
     font-family: var(--fontBebas);
   }
 

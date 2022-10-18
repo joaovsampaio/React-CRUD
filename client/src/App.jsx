@@ -37,7 +37,6 @@ function App() {
     <ThemeProvider theme={selectedTheme}>
       <GlobalStyle />
       <Header HandleThemeChange={HandleThemeChange} />
-      <Nav />
       <Main />
       <Footer />
     </ThemeProvider>

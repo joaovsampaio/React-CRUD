@@ -4,9 +4,9 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   justify-content: center;
   align-self: center;
-  height: 100vh;
 
   h1 {
     font-size: 8rem;

@@ -7,10 +7,12 @@ import { ModalError } from "../utils/Modal";
 const Container = styled.main`
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   align-items: center;
-  margin-top: 50px;
+  justify-content: center;
 
   h1 {
+    margin-top: 0;
     font-family: var(--fontBebas);
     font-size: 3rem;
     color: ${({ theme }) => theme.colors.title};

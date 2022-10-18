@@ -3,24 +3,16 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.nav`
-  div {
-    display: flex;
-    justify-content: space-around;
-    list-style: none;
-    padding-inline-start: 0;
-    background-color: ${({ theme }) => theme.colors.other};
-  }
+  display: flex;
+  align-items: center;
 
   a {
-    text-align: center;
-    width: 100%;
-    font-size: 1.5rem;
-    font-family: var(--fontBebas);
-    color: ${({ theme }) => theme.colors.secondary};
+    font-size: 1.2rem;
+    margin: 0 10px;
+    color: ${({ theme }) => theme.colors.other};
     text-decoration: none;
 
     &:hover {
-      background-color: ${({ theme }) => theme.colors.secondary};
       color: ${({ theme }) => theme.colors.bgColor};
     }
   }
@@ -29,11 +21,9 @@ const Container = styled.nav`
 function Nav() {
   return (
     <Container>
-      <div>
-        <Link to="/register">Cadastro</Link>
-        <Link to="/">Home</Link>
-        <Link to="/table">Tabela</Link>
-      </div>
+      <Link to="/">Home</Link>
+      <Link to="/register">Cadastro</Link>
+      <Link to="/table">Tabela</Link>
     </Container>
   );
 }

@@ -19,7 +19,7 @@ function ModalSuccess() {
   par.innerHTML = "&#10003; Tudo Certo";
   par.style.textAlign = "center";
   par.style.color = "#fff";
-  par.style.fontSize = "2rem";
+  par.style.fontSize = "1.5rem";
   par.style.fontFamily = "BebasNeueRegular";
   div2.appendChild(par);
 
@@ -49,7 +49,7 @@ function ModalError() {
   par.innerHTML = "&#10754; Algo deu Errado";
   par.style.textAlign = "center";
   par.style.color = "#fff";
-  par.style.fontSize = "2rem";
+  par.style.fontSize = "1.5rem";
   par.style.fontFamily = "BebasNeueRegular";
   div2.appendChild(par);
 
