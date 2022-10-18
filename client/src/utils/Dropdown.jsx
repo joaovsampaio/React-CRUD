@@ -13,7 +13,7 @@ const DropdownMenuTrigger = styled(DropdownMenu.DropdownMenuTrigger)`
 `;
 
 const DropdownMenuContent = styled(DropdownMenu.DropdownMenuContent)`
-  background-color: ${({ theme }) => theme.colors.other};
+  background-color: ${({ theme }) => theme.colors.details};
   border-radius: 2px;
   padding: 5px;
 `;
@@ -28,27 +28,26 @@ const DropdownMenuLabel = styled(DropdownMenu.DropdownMenuLabel)`
 
 const Links = styled(Link)`
   text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.text};
+  color: #fff;
   text-decoration: none;
 `;
 
 export default () => (
   <DropdownMenu.Root>
     <DropdownMenuTrigger className="fa-solid fa-bars" />
-    <DropdownMenu.Portal>
-      <DropdownMenuContent>
-        <DropdownMenuLabel>React Crud</DropdownMenuLabel>
 
-        <DropdownMenu.Item>
-          <Links to="/">Home</Links>
-        </DropdownMenu.Item>
-        <DropdownMenu.Item>
-          <Links to="/register">Cadastro</Links>
-        </DropdownMenu.Item>
-        <DropdownMenu.Item>
-          <Links to="/table">Tabela</Links>
-        </DropdownMenu.Item>
-      </DropdownMenuContent>
-    </DropdownMenu.Portal>
+    <DropdownMenuContent>
+      <DropdownMenuLabel>React Crud</DropdownMenuLabel>
+
+      <DropdownMenu.Item>
+        <Links to="/">Home</Links>
+      </DropdownMenu.Item>
+      <DropdownMenu.Item>
+        <Links to="/register">Cadastro</Links>
+      </DropdownMenu.Item>
+      <DropdownMenu.Item>
+        <Links to="/table">Tabela</Links>
+      </DropdownMenu.Item>
+    </DropdownMenuContent>
   </DropdownMenu.Root>
 );

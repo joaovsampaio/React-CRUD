@@ -32,6 +32,10 @@ const Welcome = styled.div`
 `;
 
 const Wrapper = styled.div`
+  margin: 40px 0 20px 0;
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.colors.other};
+
   @media (min-width: 1024px) {
     width: 50%;
   }
@@ -40,9 +44,10 @@ const Wrapper = styled.div`
     width: 95%;
   }
 
-  margin: 40px 0 20px 0;
-  border-radius: 10px;
-  background-color: ${({ theme }) => theme.colors.other};
+  span {
+    margin-left: 15px;
+    color: ${({ theme }) => theme.colors.text};
+  }
 
   h2 {
     text-align: center;
@@ -56,10 +61,28 @@ const Wrapper = styled.div`
     ul {
       grid-row: 1/2;
 
+      @media (max-width: 425px) {
+        grid-row: auto;
+      }
+
       li {
         font-size: 1.2rem;
-        list-style: circle;
-        color: ${({ theme }) => theme.colors.text};
+        list-style: none;
+
+        i {
+          margin-right: 10px;
+          color: ${({ theme }) => theme.colors.details};
+        }
+
+        a {
+          color: #a1d0ea;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+            color: ${({ theme }) => theme.colors.details};
+          }
+        }
       }
     }
   }
@@ -74,16 +97,35 @@ function Home() {
       </Welcome>
       <Wrapper>
         <h2>Principais Técnologias:</h2>
+        <span>Clique abaixo para saber mais.</span>
         <div>
           <ul>
-            <li>React</li>
-            <li>Styled-Components</li>
-            <li>React Router</li>
+            <li>
+              <i className="fa-brands fa-react" />
+              <a href="https://pt-br.reactjs.org/">React</a>
+            </li>
+            <li>
+              <i className="fa-solid fa-paintbrush" />
+              <a href="https://styled-components.com/">Styled-Components</a>
+            </li>
+            <li>
+              <i className="fa-solid fa-link" />
+              <a href="https://reactrouter.com/en/main">React Router</a>
+            </li>
           </ul>
           <ul>
-            <li>Express</li>
-            <li>Node</li>
-            <li>MySQL</li>
+            <li>
+              <i className="fa-solid fa-server" />
+              <a href="https://expressjs.com/pt-br/">Express</a>
+            </li>
+            <li>
+              <i className="fa-brands fa-node-js" />
+              <a href="https://nodejs.org/en/">Node</a>
+            </li>
+            <li>
+              <i className="fa-solid fa-database" />
+              <a href="https://www.mysql.com/">MySQL</a>
+            </li>
           </ul>
         </div>
       </Wrapper>
