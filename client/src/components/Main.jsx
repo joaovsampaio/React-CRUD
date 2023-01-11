@@ -12,7 +12,7 @@ function Main() {
       <Route path="/" element={<Home />} />
       <Route path="/register" element={<Register />} />
       <Route path="/table" element={<Table />} />
-      <Route path="/update" element={<Update />} />
+      <Route path="/update:productId" element={<Update />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

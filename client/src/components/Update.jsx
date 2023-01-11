@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Axios from "axios";
 import { ModalSuccess, ModalError } from "../utils/Modal";
+import { useParams } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -20,17 +21,14 @@ const Container = styled.div`
     font-size: 1rem;
     padding: 5px;
     font-family: var(--fontBebas);
+    color: #fff;
+    background-color: ${({ theme }) => theme.colors.other};
+    margin: 15px 0 10px 0;
     cursor: pointer;
 
-    &:first-of-type {
-      color: #fff;
-      background-color: ${({ theme }) => theme.colors.other};
-      margin: 15px 0 10px 0;
-    }
-
-    &:last-of-type {
-      color: #fff;
-      background-color: #fc2a2a;
+    &:disabled {
+      opacity: 0.1;
+      cursor: not-allowed;
     }
 
     &:hover {
@@ -67,9 +65,15 @@ const Container = styled.div`
       padding: 3px;
     }
 
-    div {
+    form {
       display: flex;
       flex-direction: column;
+    }
+
+    p {
+      color: #fc2a2a;
+      font-family: var(--fontBebas);
+      text-align: center;
     }
   }
 
@@ -81,6 +85,14 @@ const Container = styled.div`
 `;
 
 function Update() {
+  let { productId } = useParams();
+
+  const [productsList, setProductsList] = useState([]);
+  const [newProduct, setNewProduct] = useState("");
+  const [newPrice, setNewPrice] = useState(0);
+  const [btnDisabled, setBtnDisabled] = useState(true);
+  const [helperText, setHelperText] = useState("");
+
   useEffect(() => {
     const getProducts = () => {
       Axios.get("http://localhost:3001/products")
@@ -93,9 +105,18 @@ function Update() {
     getProducts();
   }, []);
 
-  const [productsList, setProductsList] = useState([]);
-  const [newProduct, setNewProduct] = useState("");
-  const [newPrice, setNewPrice] = useState(0);
+  useEffect(() => {
+    let product_length = newProduct.length >= 1;
+    let price_length = newPrice.length >= 1;
+
+    if (product_length && price_length) {
+      setBtnDisabled(false);
+      setHelperText("");
+    } else {
+      setBtnDisabled(true);
+      setHelperText("Os Dois Campos Devem Ser Preenchidos!");
+    }
+  }, [newProduct, newPrice]);
 
   const updateProduct = (id) => {
     Axios.put("http://localhost:3001/products", {
@@ -103,7 +124,7 @@ function Update() {
       price: newPrice,
       id: id,
     })
-      .then((resp) => {
+      .then(() => {
         ModalSuccess();
       })
       .catch(() => {
@@ -111,37 +132,39 @@ function Update() {
       });
   };
 
-  const deleteProduct = (id) => {
-    Axios.delete(`http://localhost:3001/products/${id}`).then(() => {
-      setProductsList(
-        productsList.filter((val) => {
-          return val.id != id;
-        })
-      );
-    });
-  };
+  const productsListFilter = productsList.filter((val) => {
+    return val.id == productId;
+  });
 
   return (
     <Container>
-      <h1>Editar Tabela</h1>
-      {productsList.map((val, key) => {
+      <h1>Editar</h1>
+      {productsListFilter.map((val) => {
         return (
           <div key={val.id} id="wrapped">
             <span>ID: {val.id}</span>
-            <div>
-              <label>Produto:</label>
+            <form>
+              <label htmlFor="product">Produto:</label>
               <input
                 type="text"
+                name="product"
+                id="product"
+                required
                 placeholder={val.produto}
+                defaultValue={val.produto}
                 onChange={(e) => {
                   setNewProduct(e.target.value);
                 }}
               />
 
-              <label>Preço:</label>
+              <label htmlFor="price">Preço:</label>
               <input
                 type="number"
+                name="price"
+                id="price"
+                required
                 placeholder={val.valor}
+                defaultValue={val.valor}
                 onChange={(e) => {
                   setNewPrice(e.target.value);
                 }}
@@ -149,20 +172,16 @@ function Update() {
 
               <button
                 type="submit"
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   updateProduct(val.id);
                 }}
+                disabled={btnDisabled}
               >
                 Salvar
               </button>
-              <button
-                onClick={() => {
-                  deleteProduct(val.id);
-                }}
-              >
-                Excluir
-              </button>
-            </div>
+              <p>{helperText}</p>
+            </form>
           </div>
         );
       })}

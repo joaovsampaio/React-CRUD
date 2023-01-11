@@ -3,7 +3,6 @@ import { ThemeProvider } from "styled-components";
 import { light, dark } from "./styles/Theme.styled";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import Nav from "./components/Nav";
 import GlobalStyle from "./styles/GlobalStyle";
 import Main from "./components/Main";
 

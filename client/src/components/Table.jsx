@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Loading from "../assets/img/loading.gif";
 
 const Container = styled.div`
@@ -40,35 +40,38 @@ const Container = styled.div`
         border: 1px solid #000;
         color: ${({ theme }) => theme.colors.text};
       }
-    }
-  }
-`;
 
-const Edit = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin: 20px 0;
-  width: 90%;
+      button {
+        border: 0;
+        font-size: 20px;
 
-  button {
-    color: ${({ theme }) => theme.colors.secondary};
-    background-color: ${({ theme }) => theme.colors.other};
-    width: 90px;
-    height: 40px;
-    border: none;
-    font-size: 1.5rem;
-    font-family: var(--fontBebas);
-    cursor: pointer;
+        &:hover {
+          opacity: 0.5;
+          cursor: pointer;
+        }
 
-    &:hover {
-      opacity: 0.7;
+        .fa-trash-can {
+          color: #fc2a2a;
+        }
+
+        .fa-pen-to-square {
+          color: ${({ theme }) => theme.colors.secondary};
+        }
+      }
+
+      td:has(button) {
+        padding: 10px 25%;
+        display: flex;
+        justify-content: space-between;
+      }
     }
   }
 `;
 
 function Table() {
   const [productsList, setProductsList] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getProducts = () => {
@@ -84,20 +87,30 @@ function Table() {
     getProducts();
   }, []);
 
+  const updateProduct = (id) => {
+    navigate(`/update${id}`);
+  };
+
+  const deleteProduct = (id) => {
+    Axios.delete(`http://localhost:3001/products/${id}`).then(() => {
+      setProductsList(
+        productsList.filter((val) => {
+          return val.id != id;
+        })
+      );
+    });
+  };
+
   return (
     <Container>
       <h1>Tabela</h1>
-      <Edit>
-        <Link to="/update">
-          <button>Editar</button>
-        </Link>
-      </Edit>
       <table>
         <thead>
           <tr>
             <th>ID</th>
             <th>Produto</th>
             <th>Preço</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -107,6 +120,14 @@ function Table() {
                 <td>{val.id}</td>
                 <td>{val.produto}</td>
                 <td>R${val.valor}</td>
+                <td>
+                  <button onClick={() => deleteProduct(val.id)} title="Exluir">
+                    <i className="fa-solid fa-trash-can" />
+                  </button>
+                  <button onClick={() => updateProduct(val.id)} title="Editar">
+                    <i className="fa-solid fa-pen-to-square" />
+                  </button>
+                </td>
               </tr>
             );
           })}

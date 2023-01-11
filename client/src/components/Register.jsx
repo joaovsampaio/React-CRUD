@@ -64,12 +64,18 @@ const Container = styled.main`
 
       &:disabled {
         opacity: 0.1;
-        cursor: default;
+        cursor: not-allowed;
       }
     }
 
     button:last-child {
       background-color: #fc2a2a;
+    }
+
+    p {
+      color: #fc2a2a;
+      font-family: var(--fontBebas);
+      text-align: center;
     }
   }
 `;
@@ -77,6 +83,7 @@ const Container = styled.main`
 function Register() {
   const [product, setProduct] = useState("");
   const [price, setPrice] = useState(0);
+  const [helperText, setHelperText] = useState("");
 
   const addProduct = () => {
     Axios.post("http://localhost:3001/create", {
@@ -97,8 +104,10 @@ function Register() {
 
     if (product_length && price_length) {
       document.getElementById("submit").disabled = false;
+      setHelperText("");
     } else {
       document.getElementById("submit").disabled = true;
+      setHelperText("Os Dois Campos Devem Ser Preenchidos!");
     }
   }, [product, price]);
 
@@ -126,11 +135,19 @@ function Register() {
           />
 
           <div>
-            <button id="submit" type="submit" onClick={addProduct}>
+            <button
+              id="submit"
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault();
+                addProduct();
+              }}
+            >
               Salvar
             </button>
             <button type="reset">Cancelar</button>
           </div>
+          <p>{helperText}</p>
         </form>
       </div>
     </Container>
