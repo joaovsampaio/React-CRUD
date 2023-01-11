@@ -24,9 +24,13 @@ Um simples crud com tecnologias frontend e backend.
 
 Use o terminal e acesse a pasta client:
 
+`cd client`
+
+Instale as dependências:
+
 `npm i`
 
-Execute o servidor do frontend (client):
+Ainda na pasta client, execute o servidor do frontend (client):
 
 ```bash
 npm run dev
@@ -37,6 +41,10 @@ yarn dev
 Abra no seu navegador o link que aparecer.
 
 Use o terminal e abra a pasta server:
+
+`cd client`
+
+Ainda na pasta server, execute o servidor do backend (server):
 
 ```
   node index.js

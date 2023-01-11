@@ -66,6 +66,24 @@ const Container = styled.div`
       }
     }
   }
+
+  @media (max-width: 760px) {
+    table {
+      display: block;
+      max-width: -moz-fit-content;
+      max-width: fit-content;
+      margin: 0 auto;
+      overflow-x: auto;
+      white-space: nowrap;
+      tbody {
+        td:has(button) {
+          padding: 10px 50%;
+          display: flex;
+          justify-content: center;
+        }
+      }
+    }
+  }
 `;
 
 function Table() {
@@ -88,7 +106,7 @@ function Table() {
   }, []);
 
   const updateProduct = (id) => {
-    navigate(`/update${id}`);
+    navigate(`/update/${id}`);
   };
 
   const deleteProduct = (id) => {
