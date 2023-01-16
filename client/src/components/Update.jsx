@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Axios from "axios";
 import { ModalSuccess, ModalError } from "../utils/Modal";
 import { useParams } from "react-router-dom";
+import { dbUpdateProduct, getProducts } from "../utils/http";
 
 const Container = styled.div`
   display: flex;
@@ -94,15 +94,16 @@ function Update() {
   const [helperText, setHelperText] = useState("");
 
   useEffect(() => {
-    const getProducts = () => {
-      Axios.get("http://localhost:3001/products")
-        .then((res) => {
-          setProductsList(res.data);
-        })
-        .catch(() => alert("Algo deu Errado"));
+    const fetchData = async () => {
+      try {
+        const response = await getProducts();
+        setProductsList(response);
+      } catch (e) {
+        console.log(e);
+      }
     };
 
-    getProducts();
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -118,18 +119,13 @@ function Update() {
     }
   }, [newProduct, newPrice]);
 
-  const updateProduct = (id) => {
-    Axios.put("http://localhost:3001/products", {
-      product: newProduct,
-      price: newPrice,
-      id: id,
-    })
-      .then(() => {
-        ModalSuccess();
-      })
-      .catch(() => {
-        ModalError();
-      });
+  const updateProduct = async (id) => {
+    try {
+      await dbUpdateProduct(newProduct, newPrice, id);
+      ModalSuccess();
+    } catch {
+      ModalError();
+    }
   };
 
   const productsListFilter = productsList.filter((val) => {

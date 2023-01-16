@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Loading from "../assets/img/loading.gif";
+import { dbDeleteProduct, getProducts, queryDb } from "../utils/http";
+import { ModalError } from "../utils/Modal";
 
 const Container = styled.div`
   display: flex;
@@ -20,13 +21,24 @@ const Container = styled.div`
     border-collapse: collapse;
 
     thead {
-      font-size: 1.6rem;
-      font-family: var(--fontBebas);
+      button {
+        font-family: var(--fontBebas);
+        font-size: 1.6rem;
+        border: none;
+        color: ${({ theme }) => theme.colors.text};
+        background-color: ${({ theme }) => theme.colors.details};
+      }
 
       th {
+        font-family: var(--fontBebas);
+        font-size: 1.6rem;
         border: 1px solid black;
         color: ${({ theme }) => theme.colors.text};
         background-color: ${({ theme }) => theme.colors.details};
+      }
+
+      i {
+        font-size: 20px;
       }
     }
 
@@ -65,6 +77,24 @@ const Container = styled.div`
         justify-content: space-between;
       }
     }
+
+    #tableInfo {
+      background-color: ${({ theme }) => theme.colors.other};
+      color: ${({ theme }) => theme.colors.text};
+
+      td:has(button) {
+        padding: 10px 25%;
+        display: flex;
+        justify-content: center;
+      }
+
+      button {
+        width: 100%;
+        border-radius: 5px;
+        color: ${({ theme }) => theme.colors.text};
+        background-color: ${({ theme }) => theme.colors.details};
+      }
+    }
   }
 
   @media (max-width: 760px) {
@@ -82,42 +112,125 @@ const Container = styled.div`
           justify-content: center;
         }
       }
+
+      #tableInfo {
+        button {
+          width: fit-content;
+        }
+      }
     }
   }
 `;
 
+const Fallback = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+`;
+
 function Table() {
   const [productsList, setProductsList] = useState([]);
+  const [maxValue, setMaxValue] = useState(0);
+  const [maxLength, setMaxLength] = useState(0);
+  const [avarage, setAvarage] = useState(0);
+  const [valueMode, setValueMode] = useState(false);
+  const [queryOrder, setQueryOrder] = useState(true);
+  const [iconId, setIconId] = useState("fa-solid fa-sort");
+  const [iconProduct, setIconProduct] = useState("fa-solid fa-sort");
+  const [iconValue, setIconValue] = useState("fa-solid fa-sort");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const getProducts = () => {
-      Axios.get("http://localhost:3001/products")
-        .then((res) => {
-          setProductsList(res.data);
-        })
-        .catch(() => {
-          document.getElementById("loading").style.display = "block";
-        });
-    };
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const response = await getProducts();
+      setLoading(false);
+      setProductsList(response);
+    } catch {
+      ModalError();
+    }
+  };
 
-    getProducts();
+  const queryData = async () => {
+    const response = await getProducts();
+    const columnValor = response.map((item) => item.valor);
+    setMaxValue(
+      columnValor.reduce(
+        (accumulator, currentValue) => accumulator + currentValue,
+        0
+      )
+    );
+    setMaxLength(response.length);
+    setAvarage(columnValor.reduce((a, b) => a + b, 0) / response.length || 0);
+  };
+
+  useEffect(() => {
+    fetchData();
+    queryData();
   }, []);
 
   const updateProduct = (id) => {
     navigate(`/update/${id}`);
   };
 
-  const deleteProduct = (id) => {
-    Axios.delete(`http://localhost:3001/products/${id}`).then(() => {
+  const deleteProduct = async (id) => {
+    try {
+      await dbDeleteProduct(id);
       setProductsList(
         productsList.filter((val) => {
           return val.id != id;
         })
       );
-    });
+    } catch {
+      ModalError();
+    }
   };
+
+  const iconQuery = (column) => {
+    if (column === "id" && queryOrder === false) {
+      setIconId("fa-solid fa-sort-down");
+    } else {
+      setIconId("fa-solid fa-sort-up");
+    }
+
+    if (column === "produto" && queryOrder === false) {
+      setIconProduct("fa-solid fa-sort-down");
+    } else {
+      setIconProduct("fa-solid fa-sort-up");
+    }
+
+    if (column === "valor" && queryOrder === false) {
+      setIconValue("fa-solid fa-sort-down");
+    } else {
+      setIconValue("fa-solid fa-sort-up");
+    }
+  };
+
+  const fetchOrder = async (column) => {
+    try {
+      setLoading(true);
+      const response = await queryDb(column);
+      setLoading(false);
+      setQueryOrder(!queryOrder);
+      iconQuery(column);
+      setProductsList(response);
+      queryOrder === false && setProductsList(response.reverse());
+    } catch {
+      ModalError();
+    }
+  };
+
+  if (loading) {
+    return (
+      <Fallback>
+        <img src={Loading} alt="Carregando..." />
+      </Fallback>
+    );
+  }
 
   return (
     <Container>
@@ -125,14 +238,29 @@ function Table() {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Produto</th>
-            <th>Preço</th>
+            <th>
+              <button onClick={() => fetchOrder("id")}>
+                ID
+                <i className={iconId} />
+              </button>
+            </th>
+            <th>
+              <button onClick={() => fetchOrder("produto")}>
+                Produto
+                <i className={iconProduct} />
+              </button>
+            </th>
+            <th>
+              <button onClick={() => fetchOrder("valor")}>
+                Preço
+                <i className={iconValue} />
+              </button>
+            </th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
-          {productsList.map((val, key) => {
+          {productsList.map((val) => {
             return (
               <tr key={val.id}>
                 <td>{val.id}</td>
@@ -149,14 +277,18 @@ function Table() {
               </tr>
             );
           })}
+          <tr id="tableInfo">
+            <td>{valueMode ? "Média:" : "Total:"}</td>
+            <td>{maxLength}</td>
+            <td>R${valueMode ? avarage : maxValue}</td>
+            <td>
+              <button onClick={() => setValueMode(!valueMode)}>
+                <i className={valueMode ? "fa-solid fa-m" : "fa-solid fa-t"} />
+              </button>
+            </td>
+          </tr>
         </tbody>
       </table>
-      <img
-        src={Loading}
-        alt="Carregando..."
-        id="loading"
-        style={{ display: "none" }}
-      ></img>
     </Container>
   );
 }
